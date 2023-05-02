@@ -18,7 +18,9 @@ use App\Http\Controllers\KategoriController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('/kategori', KategoriController::class );
+Route::get('/kategori',[KategoriController::class, 'index']);
+Route::get('/kategori/create',[KategoriController::class, 'create']);
+Route::post('/kategori',[KategoriController::class , 'store']);
 
 // Auth::routes();
 

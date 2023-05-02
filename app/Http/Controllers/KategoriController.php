@@ -12,33 +12,37 @@ class KategoriController extends Controller
      */
     public function index()
     {
+        $max = Kategori::max('kode');
+        $kode = substr($max,3);
+        $kode++;
+        $huruf = "KTG";
+        $maxkode = $huruf.sprintf("%03s", $kode);
+
         $data = Kategori::all();
-        return view('kategori.index', compact('data'));
+        return view('kategori.index', compact('data','maxkode'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('kategori.create');
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $a = Kategori::max('kode');
         $request -> validate([
+            'kode' => 'required',
             'nama' => 'required',
         ]);
 
         Kategori::create([
-            'kode' => Kategori::max('kode')+ 1,
+            'uuid' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+            'kode' => $request->kode,
             'nama' => $request->nama,
         ]);
-        return redirect('kategori.index');
+        return redirect('kategori');
     }
 
     /**
@@ -54,7 +58,9 @@ class KategoriController extends Controller
      */
     public function edit(Kategori $kategori)
     {
-        //
+        $data = Kategori::all();
+        dd($data);
+        return view('kategori.edit',compact('data'));
     }
 
     /**
