@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\CrudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/kategori',[KategoriController::class, 'index']);
-Route::get('/kategori/create',[KategoriController::class, 'create']);
-Route::post('/kategori',[KategoriController::class , 'store']);
+Route::post('/kategori/store',[KategoriController::class, 'store']);
+
+
+
+
+
+
+// Route::post('/kategori',[KategoriController::class , 'store']);
 
 // Auth::routes();
 

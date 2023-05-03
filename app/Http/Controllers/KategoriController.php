@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Models\Kategori;
+use Illuminate\Support\Facades\Validator;
 
 class KategoriController extends Controller
 {
@@ -26,23 +27,37 @@ class KategoriController extends Controller
      * Show the form for creating a new resource.
      */
 
-
+    // public function create(){
+    //     return view('kategori.create');
+    // }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $request -> validate([
+        $validator = Validator::make($request->all(), [
             'kode' => 'required',
             'nama' => 'required',
         ]);
 
-        Kategori::create([
-            'uuid' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
-            'kode' => $request->kode,
-            'nama' => $request->nama,
-        ]);
-        return redirect('kategori');
+        if($validator->fails()){
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->messages(),
+                'err' => 'Data Gagal Ditambahkan'
+            ]);
+        }else{
+            $kategori = new Kategori;
+            $kategori->uuid=\Ramsey\Uuid\Uuid::uuid4()->toString();
+            $kategori->kode = $request->input('kode');
+            $kategori->nama = $request->input('nama');
+            $kategori->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Data Berhasil Ditambahkan',
+            ]);
+        }
+
     }
 
     /**

@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
     <!-- Google Font: Source Sans Pro -->
     @include('template.layout.filecss')
@@ -15,7 +16,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
- @include('template.layout.side') 
+ @include('template.layout.side')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -40,7 +41,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          
+
           <div class="col-12">
             @yield('konten')
             {{-- <div class="card">
@@ -515,14 +516,14 @@
                     </div>
                   </div>
                   <!-- /.card-body -->
-  
+
                   <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
               </div>
           </div> --}}
-        
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

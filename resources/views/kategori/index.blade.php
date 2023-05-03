@@ -9,6 +9,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
             Create
         </button>
+        <div id="success" class="text-center"></div>
     </div>
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -44,15 +45,52 @@
 </div>
 
 <script>
-    function store(){
-        var name = $(".nama",".kode").val();
-        $.ajax({
-            type: "get",
-            url: "{{ url('store') }}",
-            
+    function store() {
+        var data = {
+            'nama': $('#nama').val(),
+            'kode': $('#kode').val(),
+        }
 
+        // console.log(data);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "{{ url('kategori/store') }}",
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+                if(response.status == 400){
+                    $('#errorform').html("");
+                    $('#errorform').addClass('alert alert-danger');
+                    $('#errorform').text(response.err)
+                }else{
+                    $('#errorform').html("");
+                    $('#success').addClass('alert alert-success')
+                    $('#success').text(response.message)
+                    $('#btn-close').click();
+
+                }
+            }
         });
     }
+
+    // $(document).ready(function(){
+    //     $(document).on('click','#submitbtn', function(e){
+    //         e.preventDefault();
+    //         var data = {
+    //             'kode' : $('.kode').val(),
+    //             'nama' : $('.nama').val(),
+    //         }
+    //     })
+    // })
+
 </script>
 
 @endsection
