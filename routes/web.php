@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/kategori',[KategoriController::class, 'index']);
+Route::get('/show-kategori',[KategoriController::class, 'showdata']);
+Route::get('/kategori/create',[KategoriController::class, 'create']);
 Route::post('/kategori/store',[KategoriController::class, 'store']);
 
 
