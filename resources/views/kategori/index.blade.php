@@ -11,28 +11,9 @@
         </button>
         <div id="success" class="text-center"></div>
     </div>
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Kode</th>
-                    <th>Nama</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ( $data as $x)
-                <tr>
-                    <td>{{$x->kode}}</td>
-                    <td>{{$x->nama}}</td>
-                    <td>
-                        <a class="btn badge-warning" href="/kategori/{{ $x->uuid }}/edit">Edit</a>
-                        <a class="btn badge-danger" href="">Delete</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <div class="card-body" id="read">
+
+
     </div>
     <!-- /.card-body -->
 </div>
@@ -40,12 +21,39 @@
 <div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
         @include('kategori.create')
+
     </div>
 
 </div>
 
-<script>
+
+<script type="text/javascript">
+    function showdata() {
+        $.ajax({
+            type: "get",
+            url: "/show-kategori",
+            dataType: "json",
+            success: function (response) {
+                // console.log(response.kategori);
+            }
+        });
+
+    }
+
+    function read() {
+            $.get("{{ url('kategori/read') }}", {}, function(data, status) {
+                $("#read").html(data);
+            });
+        }
+    function create() {
+            $.get("{{ url('kategori/create') }}", {}, function(data, status) {
+                $("#modal-default").html(data);
+            });
+        }
+
+
     function store() {
+
         var data = {
             'nama': $('#nama').val(),
             'kode': $('#kode').val(),
@@ -66,16 +74,17 @@
             dataType: "json",
             success: function (response) {
                 // console.log(response);
-                if(response.status == 400){
+                if (response.status == 400) {
                     $('#errorform').html("");
                     $('#errorform').addClass('alert alert-danger');
                     $('#errorform').text(response.err)
-                }else{
+                } else {
                     $('#errorform').html("");
                     $('#success').addClass('alert alert-success')
                     $('#success').text(response.message)
                     $('#btn-close').click();
 
+                    read();
                 }
             }
         });
@@ -92,5 +101,6 @@
     // })
 
 </script>
+
 
 @endsection

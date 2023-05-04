@@ -37,6 +37,7 @@
 
 <!-- jQuery -->
 
+
 <!-- Bootstrap 4 -->
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
