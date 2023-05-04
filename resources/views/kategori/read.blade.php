@@ -7,7 +7,6 @@
         </tr>
     </thead>
     <tbody>
-<<<<<<< HEAD
         @foreach ( $data as $x)
         <tr>
             <td>{{$x->kode}}</td>
@@ -19,19 +18,5 @@
             </td>
         </tr>
         @endforeach
-=======
-        {{-- @foreach ( $data as $x) --}}
-        <tr>
-            {{-- <td>{{$x->kode}}</td>
-            <td>{{$x->nama}}</td> --}}
-            <td>dasdax</td>
-            <td>dasdax</td>
-            <td>
-                {{-- <a class="btn badge-warning" href="/kategori/{{ $x->uuid }}/edit">Edit</a> --}}
-                <a class="btn badge-danger" href="">Delete</a>
-            </td>
-        </tr>
-        {{-- @endforeach --}}
->>>>>>> 5a3477e89d35e81b5f3e33af3f870a64671aebc2
     </tbody>
 </table>
