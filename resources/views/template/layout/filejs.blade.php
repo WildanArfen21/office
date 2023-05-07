@@ -3,7 +3,8 @@
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button)
+
 </script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -20,8 +21,7 @@
 <script src="plugins/moment/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script
-  src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js">
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js">
 </script>
 <!-- Summernote -->
 <script src="plugins/summernote/summernote-bs4.min.js"></script>
@@ -61,15 +61,71 @@
 
 <!-- Page specific script -->
 <script>
-$(function () {
-  bsCustomFileInput.init();
-});
+    $(function () {
+        bsCustomFileInput.init();
+    });
+
 </script>
+@yield('datatables')
+
 <script>
+    function save() {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Data Berhasil Disimpan',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    function updatesuccess() {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Data Berhasil Diedit',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    function inputalert() {
+        Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Isi Form Dengan Benar',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    function notfound() {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Not Found',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    function deletesuccess() {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Data Berhasil Dihapus',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+
+</script>
+{{-- <script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
-</script>
+</script> --}}

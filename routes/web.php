@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MerkController;
+use App\Http\Controllers\SatuanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +20,35 @@ use App\Http\Controllers\KategoriController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Kategori
 Route::get('/kategori',[KategoriController::class, 'index']);
 Route::get('/kategori/read',[KategoriController::class, 'read']);
 Route::get('/kategori/create',[KategoriController::class, 'create']);
+Route::get('/kategori/{uuid}/edit',[KategoriController::class, 'edit']);
 Route::post('/kategori/store',[KategoriController::class, 'store']);
+Route::put('/kategori/{uuid}/update',[KategoriController::class, 'update']);
+Route::get('/kategori/{uuid}/destroy',[KategoriController::class, 'destroy']);
 
+// Merk
 
+Route::get('/merk',[MerkController::class, 'index']);
+Route::get('/merk/read',[MerkController::class, 'read']);
+Route::get('/merk/create',[MerkController::class, 'create']);
+Route::get('/merk/{uuid}/edit',[MerkController::class, 'edit']);
+Route::post('/merk/store',[MerkController::class, 'store']);
+Route::put('/merk/{uuid}/update',[MerkController::class, 'update']);
+Route::get('/merk/{uuid}/destroy',[MerkController::class, 'destroy']);
 
+// Satuan
 
+Route::get('/satuan',[SatuanController::class, 'index']);
+Route::get('/satuan/read',[SatuanController::class, 'read']);
+Route::get('/satuan/create',[SatuanController::class, 'create']);
+Route::get('/satuan/{uuid}/edit',[SatuanController::class, 'edit']);
+Route::post('/satuan/store',[SatuanController::class, 'store']);
+Route::put('/satuan/{uuid}/update',[SatuanController::class, 'update']);
+Route::get('/satuan/{uuid}/destroy',[SatuanController::class, 'destroy']);
 
 
 // Route::post('/kategori',[KategoriController::class , 'store']);

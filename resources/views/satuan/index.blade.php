@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('konten')
-@section('title' ,'Halaman Kategori')
-@section('page','Data Kategori')
+@section('title' ,'Halaman Satuan')
+@section('page','Data Satuan')
 
 <div class="card">
     <div class="card-header">
@@ -31,16 +31,15 @@
 
 <script type="text/javascript">
     function read() {
-        $.get("{{ url('kategori/read') }}", {}, function (data, status) {
-            $('#close-modal').click();
-            $('#close-modal').click();
+        $.get("{{ url('satuan/read') }}", {}, function (data, status) {
+            
             $("#read").html(data);
         });
     }
 
     function create() {
 
-        $.get("{{ url('kategori/create') }}", {}, function (data, status) {
+        $.get("{{ url('satuan/create') }}", {}, function (data, status) {
 
             $('#btn-modal').click();
 
@@ -65,7 +64,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ url('kategori/store') }}",
+            url: "{{ url('satuan/store') }}",
             data: data,
             dataType: "json",
             success: function (response) {
@@ -82,7 +81,7 @@
     }
 
     function edit(uuid) {
-        $.get(`{{ url('kategori/${uuid}/edit') }}`, {}, function (data, status) {
+        $.get(`{{ url('satuan/${uuid}/edit') }}`, {}, function (data, status) {
             $('#btn-modal').click();
             $("#modal").html(data);
         });
@@ -104,7 +103,7 @@
 
         $.ajax({
             type: "PUT",
-            url: `{{ url('kategori/${uuid}/update') }}`,
+            url: `{{ url('satuan/${uuid}/update') }}`,
             data: data,
             dataType: "json",
             success: function (response) {
@@ -141,7 +140,7 @@
     function destroy(uuid) {
         $.ajax({
             type: "get",
-            url: `{{ url('kategori/${uuid}/destroy') }}`,
+            url: `{{ url('satuan/${uuid}/destroy') }}`,
             dataType: "json",
             success: function (response) {
                 // console.log(response);

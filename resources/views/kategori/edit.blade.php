@@ -1,24 +1,26 @@
-@extends('template.main')
-@section('konten')
-@section('title' ,'Halaman Edit Kategori')
-@section('page','Edit Kategori')
-<div class="card card-primary">
-    <form action="/kategori" method="post">
-        @csrf
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit Data Kategori</h4>
+        <button id="btn-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
         <div class="card-body">
+            <ul id="errorform"></ul>
             <div class="form-group">
                 <label>Nama</label>
-                <input type="text" name="nama" class="form-control">
-                {{-- <input type="hidden" name="kode" value="{{ $data }}" class="form-control"> --}}
+                <input type="text" name="nama" id="nama" value="{{ $data->nama }}" class="form-control">
+                <input type="hidden" name="kode" id="kode" value="{{ $data->kode }}" class="form-control">
+
             </div>
         </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary float-right">Submit</button>
-            <a href="/kategori" class="btn btn-success ">Back</a>
+            <button type="submit" class="btn btn-primary float-right" id="submitbtn" onclick="update('{{ $data->uuid }}')">Submit</button>
+            <button type="button" class="btn btn-default" id="close-modal" data-dismiss="modal">Close</button>
         </div>
-    </form>
+    </div>
 </div>
-</div>
-@endsection
+    

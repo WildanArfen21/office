@@ -9,7 +9,7 @@
     <!-- Google Font: Source Sans Pro -->
     @include('template.layout.filecss')
 </head>
-<body class="hold-transition sidebar-mini" onload="read()">
+<body class="hold-transition sidebar-mini" onload="read()" id="bomo">
 <div class="wrapper">
   <!-- Navbar -->
   @include('template.layout.nav')

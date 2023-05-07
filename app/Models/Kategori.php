@@ -4,9 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
+
 
 class Kategori extends Model
 {
     use HasFactory;
-    protected $fillable = ['uuid','kode','nama'];
+    use HasUuids;
+    protected $primaryKey = 'uuid';
+    protected $fillable = ['kode','nama'];
 }
