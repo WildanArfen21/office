@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_kategori',36)->references('uuid')->on('kategoris')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_merk',36)->references('uuid')->on('merks')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_satuan',36)->references('uuid')->on('satuans')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignUuid('uuid_kategori',36)->references('uuid')->on('kategoris')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_merk',36)->references('uuid')->on('merks')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_satuan',36)->references('uuid')->on('satuans')->onDelete('cascade')->onUpdate('cascade');
             $table->string('deskripsi_barang')->nullable();
             $table->string('kode')->unique();
             $table->string('nama');

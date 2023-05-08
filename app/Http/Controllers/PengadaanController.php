@@ -33,14 +33,14 @@ class PengadaanController extends Controller
     public function create()
     {
         $max = Pengadaan::max('nomor_pengadaan');
-        $kode = substr($max,2);
+        $kode = substr($max,3);
         $kode++;
-        $huruf= "KTG";
-        $maxkode = $huruf.sprintf("%03s",$kode);
+        $huruf= "NP";
+        $nopeng = $huruf.sprintf("%05s",$kode);
 
         $jenis = Jenis_Pengadaan::all();
         $supplier = Supplier::all();
-        return view('pengadaan.create', compact('jenis','supplier'));
+        return view('pengadaan.create', compact('jenis','supplier','nopeng'));
     }
 
     /**
@@ -53,7 +53,7 @@ class PengadaanController extends Controller
             'jenis' => 'required',
             'no' => 'required',
             'tgl' => 'required',
-            'keterangan' => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         if($validator->fails()){
@@ -96,7 +96,7 @@ class PengadaanController extends Controller
             'jenis' => 'required',
             'no' => 'required',
             'tgl' => 'required',
-            'keterangan' => 'required',
+            'keterangan' => 'nullable',
         ]);
 
         if($validator->fails()){

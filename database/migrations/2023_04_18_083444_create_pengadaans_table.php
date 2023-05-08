@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pengadaans', function (Blueprint $table) {
             $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_supplier',36)->references('uuid')->on('suppliers')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_jenis_pengadaan',36)->references('uuid')->on('jenis_pengadaans')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignUuid('uuid_supplier',36)->references('uuid')->on('suppliers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_jenis_pengadaan',36)->references('uuid')->on('jenis_pengadaans')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nomor_pengadaan');
             $table->date('tanggal_pengadaan');
             $table->string('keterangan')->nullable();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('karyawans', function (Blueprint $table) {
             $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_user')->references('uuid')->on('users')->onUpdate('restrict')->onDelete('restrict')->nullable();
+            $table->foreignUuid('uuid_user')->references('uuid')->on('users')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->string('kode')->unique();
             $table->string('nama');
             $table->enum('jenis_kelamin',['Laki-Laki','Perempuan']);

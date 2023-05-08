@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('penempatan_mutasis', function (Blueprint $table) {
             $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_lokasi',36)->references('uuid')->on('lokasis')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_karyawan',36)->references('uuid')->on('karyawans')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignUuid('uuid_lokasi',36)->references('uuid')->on('lokasis')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_karyawan',36)->references('uuid')->on('karyawans')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nomor');
             $table->date('tanggal');
             $table->text('keterangan')->nullable();

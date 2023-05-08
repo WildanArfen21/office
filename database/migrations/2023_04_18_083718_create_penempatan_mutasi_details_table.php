@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('penempatan_mutasi_details', function (Blueprint $table) {
             $table->uuid('uuid');
-            $table->foreignUuid('uuid_penempatan_mutasi',36)->references('uuid')->on('penempatan_mutasis')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_inventaris',36)->references('uuid')->on('inventaris')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignUuid('uuid_penempatan_mutasi',36)->references('uuid')->on('penempatan_mutasis')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_inventaris',36)->references('uuid')->on('inventaris')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
 
         });

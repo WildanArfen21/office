@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('peminjaman_details', function (Blueprint $table) {
             $table->uuid('uuid',36);
-            $table->foreignUuid('uuid_peminjaman',36)->references('uuid')->on('peminjamans')->onUpdate('restrict')->onDelete('restrict')->nullable();
-            $table->foreignUuid('uuid_inventaris',36)->references('uuid')->on('inventaris')->onUpdate('restrict')->onDelete('restrict')->nullable();
+            $table->foreignUuid('uuid_peminjaman',36)->references('uuid')->on('peminjamans')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignUuid('uuid_inventaris',36)->references('uuid')->on('inventaris')->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

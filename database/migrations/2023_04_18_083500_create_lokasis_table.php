@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lokasis', function (Blueprint $table) {
             $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_departemen',36)->references('uuid')->on('departemens')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignUuid('uuid_departemen',36)->references('uuid')->on('departemens')->onDelete('cascade')->onUpdate('cascade');
             $table->string('kode')->unique();
             $table->string('nama');
             $table->timestamps();

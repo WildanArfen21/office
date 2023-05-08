@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_barang',36)->references('uuid')->on('barangs')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_lokasi',36)->references('uuid')->on('lokasis')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignUuid('uuid_pengadaan',36)->references('uuid')->on('pengadaans')->onDelete('restrict')->onUpdate('restrict')->nullable();
+            $table->foreignUuid('uuid_barang',36)->references('uuid')->on('barangs')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_lokasi',36)->references('uuid')->on('lokasis')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('uuid_pengadaan',36)->references('uuid')->on('pengadaans')->onDelete('cascade')->onUpdate('cascade')->nullable();
             $table->string('kode_aset');
             $table->year('tahun_datang');
             $table->year('tahun_digunakan')->nullable();
