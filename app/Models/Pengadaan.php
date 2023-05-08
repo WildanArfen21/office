@@ -19,4 +19,8 @@ class Pengadaan extends Model
     public function supplier(){
         return $this->belongsTo(Supplier::class, 'uuid_supplier');
     }
+
+    public function pengadaanDetail(){
+        return $this->hasMany(Pengadaan_Detail::class);
+    }
 }

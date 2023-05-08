@@ -23,4 +23,8 @@ class Barang extends Model
     public function satuan(){
         return $this->belongsTo(Satuan::class , 'uuid_satuan');
     }
+
+    public function pengadaanDetail(){
+        return $this->hasMany(Pengadaan_Detail::class);
+    }
 }

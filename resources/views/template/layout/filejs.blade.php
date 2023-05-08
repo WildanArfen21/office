@@ -119,6 +119,16 @@
         })
     }
 
+    function rupiah(value){
+        formatRupiah(value ,'Rp.');
+    }
+        // var rupiah = $('#harga').keyup();
+        // alert(rupiah.value);
+        // dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+    
+    
+
+
 
 </script>
 {{-- <script>

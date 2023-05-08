@@ -9,6 +9,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\JenisPengadaanController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PengadaanController;
+use App\Http\Controllers\PengadaanDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,23 @@ Route::get('/pengadaan/{uuid}/edit',[PengadaanController::class, 'edit']);
 Route::post('/pengadaan/store',[PengadaanController::class, 'store']);
 Route::put('/pengadaan/{uuid}/update',[PengadaanController::class, 'update']);
 Route::get('/pengadaan/{uuid}/destroy',[PengadaanController::class, 'destroy']);
+
+// Pengadaan-Detail
+
+Route::get('/pengadaan-detail',[PengadaanDetailController::class, 'index']);
+Route::get('/pengadaan-detail/read',[PengadaanDetailController::class, 'read']);
+Route::get('/pengadaan-detail/create',[PengadaanDetailController::class, 'create']);
+Route::get('/pengadaan-detail/{uuid}/edit',[PengadaanDetailController::class, 'edit']);
+Route::post('/pengadaan-detail/store',[PengadaanDetailController::class, 'store']);
+Route::put('/pengadaan-detail/{uuid}/update',[PengadaanDetailController::class, 'update']);
+Route::get('/pengadaan-detail/{uuid}/destroy',[PengadaanDetailController::class, 'destroy']);
+
+
+
+
+
+
+
 
 // Route::post('/kategori',[KategoriController::class , 'store']);
 
