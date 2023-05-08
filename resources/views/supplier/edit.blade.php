@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title">Edit Data Merk</h4>
+        <h4 class="modal-title">Edit Data Supplier</h4>
         <button id="btn-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -15,7 +15,14 @@
             <div class="form-group">
                 <label>Nama</label>
                 <input type="text" name="nama" id="nama" value="{{ $data->nama }}" class="form-control">
-
+            </div>
+            <div class="form-group">
+                <label>Alamat</label>
+                <input type="text" id="alamat" value="{{ $data->alamat }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>No Telp</label>
+                <input type="number" id="no" value="{{ $data->no_telp }}" class="form-control">
             </div>
         </div>
         <!-- /.card-body -->

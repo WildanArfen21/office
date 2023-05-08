@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title">Create Data Kategori</h4>
+        <h4 class="modal-title">Create Data Jenis Pengadaan</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -8,10 +8,6 @@
     <div class="modal-body">
         <div class="card-body">
             <ul id="errorform"></ul>
-            <div class="form-group">
-                <label>Kode</label>
-                <input type="text" name="kode" id="kode" value="{{ $maxkode }}" class="form-control" readonly>
-            </div>
             <div class="form-group">
                 <label>Nama</label>
                 <input type="text" name="nama" id="nama" class="form-control">

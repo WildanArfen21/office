@@ -12,5 +12,9 @@ class Satuan extends Model
     use HasUuids;
     protected $primaryKey = 'uuid';
     protected $fillable = ['kode','nama'];
+
+    public function barang(){
+        return $this->hasMany(Barang::class);
+    }
 }
 

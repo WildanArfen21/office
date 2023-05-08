@@ -9,9 +9,12 @@
         <div class="card-body">
             <ul id="errorform"></ul>
             <div class="form-group">
+                <label>Kode</label>
+                <input type="text" name="kode" id="kode" value="{{ $maxkode }}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
                 <label>Nama</label>
                 <input type="text" name="nama" id="nama" class="form-control">
-                <input type="hidden" name="kode" id="kode" value="{{ $maxkode }}" class="form-control">
 
             </div>
         </div>
