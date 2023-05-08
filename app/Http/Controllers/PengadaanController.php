@@ -32,6 +32,12 @@ class PengadaanController extends Controller
      */
     public function create()
     {
+        $max = Pengadaan::max('nomor_pengadaan');
+        $kode = substr($max,2);
+        $kode++;
+        $huruf= "KTG";
+        $maxkode = $huruf.sprintf("%03s",$kode);
+
         $jenis = Jenis_Pengadaan::all();
         $supplier = Supplier::all();
         return view('pengadaan.create', compact('jenis','supplier'));

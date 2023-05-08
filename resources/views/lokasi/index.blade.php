@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('konten')
-@section('title' ,'Halaman Pengadaan Detail')
-@section('page','Data Pengadaan Detail')
+@section('title' ,'Halaman Lokasi')
+@section('page','Data Lokasi')
 
 <div class="card">
     <div class="card-header">
@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
     function read() {
-        $.get("{{ url('pengadaan-detail/read') }}", {}, function (data, status) {
+        $.get("{{ url('lokasi/read') }}", {}, function (data, status) {
             $('#close-modal').click();
             $('#close-modal').click();
             $("#read").html(data);
@@ -40,7 +40,7 @@
 
     function create() {
 
-        $.get("{{ url('pengadaan-detail/create') }}", {}, function (data, status) {
+        $.get("{{ url('lokasi/create') }}", {}, function (data, status) {
 
             $('#btn-modal').click();
 
@@ -53,10 +53,8 @@
 
         var data = {
             'nama': $('#nama').val(),
-            'no': $('#no').val(),
-            'jumlah': $('#jumlah').val(),
-            'harga': $('#harga').val(),
-            'deskripsi': $('#deskripsi').val(),
+            'kode': $('#kode').val(),
+            'departemen': $('#departemen').val(),
         }
 
 
@@ -68,7 +66,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{{ url('pengadaan-detail/store') }}",
+            url: "{{ url('lokasi/store') }}",
             data: data,
             dataType: "json",
             success: function (response) {
@@ -85,7 +83,7 @@
     }
 
     function edit(uuid) {
-        $.get(`{{ url('pengadaan-detail/${uuid}/edit') }}`, {}, function (data, status) {
+        $.get(`{{ url('lokasi/${uuid}/edit') }}`, {}, function (data, status) {
             $('#btn-modal').click();
             $("#modal").html(data);
         });
@@ -95,10 +93,8 @@
 
         var data = {
             'nama': $('#nama').val(),
-            'no': $('#no').val(),
-            'jumlah': $('#jumlah').val(),
-            'harga': $('#harga').val(),
-            'deskripsi': $('#deskripsi').val(),
+            'kode': $('#kode').val(),
+            'departemen': $('#departemen').val(),
         }
 
 
@@ -110,7 +106,7 @@
 
         $.ajax({
             type: "PUT",
-            url: `{{ url('pengadaan-detail/${uuid}/update') }}`,
+            url: `{{ url('lokasi/${uuid}/update') }}`,
             data: data,
             dataType: "json",
             success: function (response) {
@@ -147,7 +143,7 @@
     function destroy(uuid) {
         $.ajax({
             type: "get",
-            url: `{{ url('pengadaan-detail/${uuid}/destroy') }}`,
+            url: `{{ url('lokasi/${uuid}/destroy') }}`,
             dataType: "json",
             success: function (response) {
                 // console.log(response);

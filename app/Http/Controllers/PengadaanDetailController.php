@@ -48,6 +48,7 @@ class PengadaanDetailController extends Controller
             'no' => 'required',
             'harga' => 'required',
             'jumlah' => 'required',
+            'deskripsi' => 'nullable',
         ]);
 
         if($validator->fails()){
@@ -60,6 +61,7 @@ class PengadaanDetailController extends Controller
             $pengtail->uuid_barang = $request->input('nama');
             $pengtail->uuid_pengadaan = $request->input('no');
             $pengtail->harga = $request->input('harga');
+            $pengtail->deskripsi_barang = $request->input('deskripsi');
             $pengtail->jumlah = $request->input('jumlah');
             $pengtail->total = $request->input('harga') * $request->input('jumlah') ;
             $pengtail->save();
@@ -91,6 +93,7 @@ class PengadaanDetailController extends Controller
             'no' => 'required',
             'harga' => 'required',
             'jumlah' => 'required',
+            'deskripsi' => 'nullable',
         ]);
 
         if($validator->fails()){
@@ -103,6 +106,7 @@ class PengadaanDetailController extends Controller
                 $pengtail->uuid_barang = $request->input('nama');
                 $pengtail->uuid_pengadaan = $request->input('no');
                 $pengtail->harga = $request->input('harga');
+                $pengtail->deskripsi_barang = $request->input('deskripsi');
                 $pengtail->jumlah = $request->input('jumlah');
                 $pengtail->total = $request->input('harga') * $request->input('jumlah') ;
                 $pengtail->update();

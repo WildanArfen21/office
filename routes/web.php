@@ -10,6 +10,8 @@ use App\Http\Controllers\JenisPengadaanController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PengadaanController;
 use App\Http\Controllers\PengadaanDetailController;
+use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\LokasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,8 +107,25 @@ Route::post('/pengadaan-detail/store',[PengadaanDetailController::class, 'store'
 Route::put('/pengadaan-detail/{uuid}/update',[PengadaanDetailController::class, 'update']);
 Route::get('/pengadaan-detail/{uuid}/destroy',[PengadaanDetailController::class, 'destroy']);
 
+// Departemen
 
+Route::get('/departemen',[DepartemenController::class, 'index']);
+Route::get('/departemen/read',[DepartemenController::class, 'read']);
+Route::get('/departemen/create',[DepartemenController::class, 'create']);
+Route::get('/departemen/{uuid}/edit',[DepartemenController::class, 'edit']);
+Route::post('/departemen/store',[DepartemenController::class, 'store']);
+Route::put('/departemen/{uuid}/update',[DepartemenController::class, 'update']);
+Route::get('/departemen/{uuid}/destroy',[DepartemenController::class, 'destroy']);
 
+// Lokasi
+
+Route::get('/lokasi',[LokasiController::class, 'index']);
+Route::get('/lokasi/read',[LokasiController::class, 'read']);
+Route::get('/lokasi/create',[LokasiController::class, 'create']);
+Route::get('/lokasi/{uuid}/edit',[LokasiController::class, 'edit']);
+Route::post('/lokasi/store',[LokasiController::class, 'store']);
+Route::put('/lokasi/{uuid}/update',[LokasiController::class, 'update']);
+Route::get('/lokasi/{uuid}/destroy',[LokasiController::class, 'destroy']);
 
 
 

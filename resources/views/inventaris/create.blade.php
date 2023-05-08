@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title">Create Data Pengadaan</h4>
+        <h4 class="modal-title">Create Data Merk</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -9,34 +9,36 @@
         <div class="card-body">
             <ul id="errorform"></ul>
             <div class="form-group">
+                <label>Kode</label>
+                <input type="text" name="kode" id="kode" value="{{ $maxkode }}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
                 <label>Nama</label>
-                <select id="nama" class="form-control">
-                    <option>-- Pilih Nama --</option>
-                    @foreach ( $supplier as $x )
+                <input type="text" id="nama" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Kategori</label>
+                <select id="kategori" class="form-control" required>
+                    @foreach ( $kategori as $x )
                         <option value="{{ $x->uuid }}">{{ $x->nama }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label>Jenis Pengadaan</label>
-                <select id="jenis" class="form-control">
-                    <option>-- Pilih Jenis --</option>
-                    @foreach ( $jenis as $x)
+                <label>Merk</label>
+                <select id="merk" class="form-control" required>
+                    @foreach ( $merk as $x )
                         <option value="{{ $x->uuid }}">{{ $x->nama }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
-                <label>No Pengadaan</label>
-                <input type="text" id="no" value="{{ $nopeng }}" class="form-control" readonly>
-            </div>
-            <div class="form-group">
-                <label>Tgl Pengadaan</label>
-                <input type="date" id="tgl" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Keterangan</label>
-                <input type="text" id="keterangan" class="form-control">
+                <label>Satuan</label>
+                <select id="satuan" class="form-control" required>
+                    @foreach ( $satuan as $x )
+                        <option value="{{ $x->uuid }}">{{ $x->nama }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <!-- /.card-body -->

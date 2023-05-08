@@ -34,6 +34,10 @@
                 <label>Harga</label>
                 <input type="number" id="harga" class="form-control">
             </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <input type="text" id="deskripsi" class="form-control">
+            </div>
 
         </div>
         <!-- /.card-body -->

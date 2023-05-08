@@ -2,24 +2,23 @@
 <table id="example1" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Nama Barang</th>
-            <th>No Pengadaan</th>
-            <th>Jumlah</th>
-            <th>Harga</th>
-            <th>Total</th>
-            <th>Deskripsi</th>
+            <th>Kode</th>
+            <th>Nama</th>
+            <th>Kategori</th>
+            <th>Merk</th>
+            <th>Satuan</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
         @foreach ( $data as $x)
         <tr>
-            <td>{{ $x->barang->nama }}</td>
-            <td>{{$x->pengadaan->nomor_pengadaan}}</td>
-            <td>{{$x->jumlah}}</td>
-            <td>{{$x->harga}}</td>
-            <td>{{$x->total}}</td>
-            <td>{{$x->deskripsi_barang}}</td>
+            <td>{{$x->kode}}</td>
+            <td>{{$x->nama}}</td>
+            <td>{{$x->kategori->nama}}</td>
+            <td>{{$x->merk->nama}}</td>
+            <td>{{$x->satuan->nama}}</td>
+
             <td>
                 <a class="btn badge-warning" onclick="edit('{{ $x->uuid }}')">Edit</a>
                 <a class="btn badge-danger" onclick="confirmdel('{{ $x->uuid }}')">Delete</a>

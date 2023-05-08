@@ -12,6 +12,10 @@ class Pengadaan_Detail extends Model
     use HasUuids;
     protected $table = 'pengadaan_details';
     protected $primaryKey = 'uuid';
+    protected $nullable = [
+        'deskripsi_barang'
+    ];
+
     protected $fillable = ['uuid_pengadaan','uuid_barang','jumlah','harga','total'];
 
     public function barang(){

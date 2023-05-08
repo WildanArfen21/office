@@ -34,6 +34,10 @@
                 <label>Harga</label>
                 <input type="number" value="{{ $data->harga }}" id="harga" class="form-control">
             </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <input type="text" id="deskripsi" value="{{ $data->deskripsi_barang }}" class="form-control">
+            </div>
 
         </div>
         <!-- /.card-body -->
