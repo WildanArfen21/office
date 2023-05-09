@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>No Pengadaan</label>
-                <input type="number" id="no" value="{{ $data->nomor_pengadaan }}" class="form-control">
+                <input type="text" id="no" value="{{ $data->nomor_pengadaan }}" class="form-control" readonly>
             </div>
             <div class="form-group">
                 <label>Tgl Pengadaan</label>

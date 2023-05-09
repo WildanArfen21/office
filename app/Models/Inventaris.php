@@ -13,8 +13,8 @@ class Inventaris extends Model
     protected $primaryKey = 'uuid';
     protected $nullable = [
         'uuid_pengadaan','tahun_digunakan','nomor_seri','masa_habis_kalibrasi','no_sertifikat_kalibrasi','pembuat_sertifikat','asal_barang','keterangan','foto'
-    ];
-    protected $fillable = ['uuid_barang','uuid_lokasi','kode_aset','tahun_digunakan'];
+    ]; 
+    protected $fillable = ['uuid_barang','uuid_lokasi','kode_aset','tahun_datang'];
 
 
 }
