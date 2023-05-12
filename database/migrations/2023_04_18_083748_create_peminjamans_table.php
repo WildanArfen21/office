@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peminjamans', function (Blueprint $table) {
-            $table->uuid('uuid',36)->primary();
-            $table->foreignUuid('uuid_karyawan',36)->references('uuid')->on('karyawans')->onUpdate('cascade')->onDelete('cascade')->nullable();
-            $table->date('tgl_peminjaman'); 
+            $table->uuid('uuid')->primary();
+            $table->foreignUuid('uuid_karyawan')->references('uuid')->on('karyawans')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->date('tgl_peminjaman');
             $table->date('tgl_akan_kembali');
             $table->enum('status',['Sedang Dipinjam','Sudah Dikembalikan']);
             $table->text('keterangan')->nullable();

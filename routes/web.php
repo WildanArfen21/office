@@ -12,6 +12,9 @@ use App\Http\Controllers\PengadaanController;
 use App\Http\Controllers\PengadaanDetailController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PenempatanMutasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +129,36 @@ Route::get('/lokasi/{uuid}/edit',[LokasiController::class, 'edit']);
 Route::post('/lokasi/store',[LokasiController::class, 'store']);
 Route::put('/lokasi/{uuid}/update',[LokasiController::class, 'update']);
 Route::get('/lokasi/{uuid}/destroy',[LokasiController::class, 'destroy']);
+
+// Karyawan
+
+Route::get('/karyawan',[KaryawanController::class, 'index']);
+Route::get('/karyawan/read',[KaryawanController::class, 'read']);
+Route::get('/karyawan/create',[KaryawanController::class, 'create']);
+Route::get('/karyawan/{uuid}/edit',[KaryawanController::class, 'edit']);
+Route::post('/karyawan/store',[KaryawanController::class, 'store']);
+Route::put('/karyawan/{uuid}/update',[KaryawanController::class, 'update']);
+Route::get('/karyawan/{uuid}/destroy',[KaryawanController::class, 'destroy']);
+
+// Peminjaman
+
+Route::get('/peminjaman',[PeminjamanController::class, 'index']);
+Route::get('/peminjaman/read',[PeminjamanController::class, 'read']);
+Route::get('/peminjaman/create',[PeminjamanController::class, 'create']);
+Route::get('/peminjaman/{uuid}/edit',[PeminjamanController::class, 'edit']);
+Route::post('/peminjaman/store',[PeminjamanController::class, 'store']);
+Route::put('/peminjaman/{uuid}/update',[PeminjamanController::class, 'update']);
+Route::get('/peminjaman/{uuid}/destroy',[PeminjamanController::class, 'destroy']);
+
+// Penempatan Mutasi
+
+Route::get('/penempatan-mutasi',[PenempatanMutasiController::class, 'index']);
+Route::get('/penempatan-mutasi/read',[PenempatanMutasiController::class, 'read']);
+Route::get('/penempatan-mutasi/create',[PenempatanMutasiController::class, 'create']);
+Route::get('/penempatan-mutasi/{uuid}/edit',[PenempatanMutasiController::class, 'edit']);
+Route::post('/penempatan-mutasi/store',[PenempatanMutasiController::class, 'store']);
+Route::put('/penempatan-mutasi/{uuid}/update',[PenempatanMutasiController::class, 'update']);
+Route::get('/penempatan-mutasi/{uuid}/destroy',[PenempatanMutasiController::class, 'destroy']);
 
 
 

@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penempatan_Mutasi;
+use App\Models\Lokasi;
 use App\Models\Karyawan;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class KaryawanController extends Controller
+class PenempatanMutasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('karyawan.index');
+        return view('penempatan-mutasi.index');
     }
 
     public function read(){
-        $karyawan = Karyawan::all();
-        return view('karyawan.read')->with([
-            'data' => $karyawan,
-            'user' => 'user'
+        $penempatan_mutasi = Penempatan_Mutasi::all();
+        return view('penempatan-mutasi.read')->with([
+            'data' => $penempatan_mutasi,
+            'lokasi' => 'lokasi',
+            'karyawan' => 'karyawan',
+
         ]);
     }
 
