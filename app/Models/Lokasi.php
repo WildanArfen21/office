@@ -16,4 +16,8 @@ class Lokasi extends Model
     public function departemen(){
         return $this->belongsTo(Departemen::class, 'uuid_departemen');
     }
+
+    public function inventaris(){
+        return $this->hasMany(Inventaris::class);
+    }
 }

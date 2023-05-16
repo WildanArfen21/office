@@ -14,7 +14,17 @@ class Inventaris extends Model
     protected $nullable = [
         'uuid_pengadaan','tahun_digunakan','nomor_seri','masa_habis_kalibrasi','no_sertifikat_kalibrasi','pembuat_sertifikat','asal_barang','keterangan','foto'
     ]; 
-    protected $fillable = ['uuid_barang','uuid_lokasi','kode_aset','tahun_datang'];
+    protected $fillable = ['uuid_barang','uuid_lokasi','kode_aset','tahun_datang','status'];
+
+    public function barang(){
+        return $this->belongsTo(Barang::class, 'uuid_barang');
+    }
+    public function lokasi(){
+        return $this->belongsTo(Lokasi::class, 'uuid_lokasi');
+    }
+    public function pengadaan(){
+        return $this->belongsTo(Pengadaan::class, 'uuid_pengadaan');
+    }
 
 
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengadaan_detail;
 use App\Models\Pengadaan;
+use App\Models\Inventaris;
 use App\Models\Jenis_Pengadaan;
+use App\Models\Barang;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,10 +18,12 @@ class PengadaanController extends Controller
      */
     public function index()
     {
-        return view('pengadaan.index');
+        $barang = Barang::all();
+        return view('pengadaan.index',compact('barang'));
     }
 
     public function read(){
+        
         $pengadaan = Pengadaan::all();
         return view('pengadaan.read')->with([
             'data' => $pengadaan,
@@ -33,14 +38,15 @@ class PengadaanController extends Controller
     public function create()
     {
         $max = Pengadaan::max('nomor_pengadaan');
-        $kode = substr($max,3);
+        $kode = substr($max,2);
         $kode++;
-        $huruf= "NP";
-        $nopeng = $huruf.sprintf("%05s",$kode);
-
+        $huruf= "BB";
+        $maxkode = $huruf.sprintf("%03s",$kode);
         $jenis = Jenis_Pengadaan::all();
         $supplier = Supplier::all();
-        return view('pengadaan.create', compact('jenis','supplier','nopeng'));
+        $barang = Barang::all();
+
+        return view('pengadaan.create', compact('jenis','supplier','maxkode','barang'));
     }
 
     /**
@@ -48,12 +54,17 @@ class PengadaanController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-            'jenis' => 'required',
             'no' => 'required',
             'tgl' => 'required',
+            'supplier' => 'required',
+            'jenis' => 'required',
             'keterangan' => 'nullable',
+            'barang' => 'required',
+            'deskripsi' => 'nullable',
+            'harga' => 'required',
+            'jumlah' => 'required',
         ]);
 
         if($validator->fails()){
@@ -63,12 +74,43 @@ class PengadaanController extends Controller
         }else{
 
             $pengadaan = new Pengadaan();
-            $pengadaan->uuid_supplier = $request->input('nama');
+            $pengadaan->uuid_supplier = $request->input('supplier');
             $pengadaan->uuid_jenis_pengadaan = $request->input('jenis');
             $pengadaan->nomor_pengadaan = $request->input('no');
             $pengadaan->tanggal_pengadaan = $request->input('tgl');
             $pengadaan->keterangan = $request->input('keterangan');
             $pengadaan->save();
+
+            $datap = Pengadaan::where('nomor_pengadaan','=', $request->input('no'))->first();
+
+            $detail = new Pengadaan_detail();
+            $detail->uuid_pengadaan = $datap->uuid;
+            $detail->uuid_barang = $request->input('barang');
+            $detail->jumlah = $request->input('jumlah');
+            $detail->harga = $request->input('harga');
+            $detail->total = $request->input('harga') * $request->input('jumlah');
+            $detail->save();
+
+            $kobar = Barang::where('uuid','=',$request->input('barang'))->first();
+            
+            $noset = Inventaris::max('kode_aset');
+            $nomoraset = substr($noset,7);
+            $nomoraset++;
+            $kodeaset = $kobar->kode.".".sprintf('%03s',$nomoraset);
+
+            $tgl = substr($request->input('tgl'),0,4);
+
+            $inven = new Inventaris();
+            $inven->uuid_pengadaan = $datap->uuid;
+            $inven->uuid_barang = $request->input('barang');
+            $inven->kode_aset = $kodeaset;
+            $inven->tahun_datang =  $tgl;
+            $inven->harga_barang = $request->input('harga');
+            $inven->status = "Tersedia";
+            $inven->save();
+
+
+
             return response()->json([
                 'status' => 200,
             ]);

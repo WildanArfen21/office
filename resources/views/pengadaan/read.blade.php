@@ -19,6 +19,7 @@
             <td>{{$x->tanggal_pengadaan}}</td>
             <td>{{$x->keterangan}}</td>
             <td>
+                <a class="btn badge-info" onclick="detail('{{ $x->uuid }}')">Detail</a>
                 <a class="btn badge-warning" onclick="edit('{{ $x->uuid }}')">Edit</a>
                 <a class="btn badge-danger" onclick="confirmdel('{{ $x->uuid }}')">Delete</a>
             </td>

@@ -21,12 +21,14 @@
 </div>
 
 {{-- <div class="modal fade show" id="modal-default" style="display: block; padding-right: 17px;" aria-modal="true" role="dialog"> --}}
-<div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" id="modal">
+<div class="modal fade bd-example-modal-lg" id="modal-default" style="display: none;" aria-hidden="true" role="dialog" role="dialog">
+    <div class="modal-dialog modal-xl" id="modal">
         {{-- @include('kategori.create') --}}
     </div>
 
 </div>
+@endsection
+@section('js')
 
 
 <script type="text/javascript">
@@ -52,13 +54,16 @@
     function store() {
 
         var data = {
-            'nama': $('#nama').val(),
-            'jenis': $('#jenis').val(),
             'no': $('#no').val(),
             'tgl': $('#tgl').val(),
+            'supplier': $('#supplier').val(),
+            'jenis': $('#jenis').val(),
             'keterangan': $('#keterangan').val(),
+            'barang': $('#barang').val(),
+            'deskripsi': $('#deskripsi').val(),
+            'harga': $('#harga').val(),
+            'jumlah': $('#jumlah').val(),
         }
-
 
         $.ajaxSetup({
             headers: {
@@ -72,7 +77,7 @@
             data: data,
             dataType: "json",
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response.status == 400) {
                     inputalert();
                 } else {
@@ -166,7 +171,24 @@
         $('#close-modal').click();
     }
 
-</script>
 
+    function addrow(){
+        var add = '';
+        add+='<div class="row">';
+        add+='<div class="col-3" id="child"><div class="form-group"><select id="barang" name="barang[]" class="form-control" required>@foreach($barang as $x )<option>....</option><option value="{{ $x->uuid }}">{{ $x->nama }}</option>@endforeach</select></div></div>';
+        add+='<div class="col-3"><div class="form-group"><input type="text" id="deskripsi" name="deskripsi[]" value="" class="form-control"></div></div>';
+        add+='<div class="col-3"><div class="form-group"><input type="number" id="harga" name="harga[]"  class="form-control"></div></div>';
+        add+='<div class="col-2"><div class="form-group"><input type="number" id="jumlah" name="jumlah[]" class="form-control"></div></div>';
+        add+='<div class="col-1"><button class="btn btn-danger remove"><i class="fas fa-times"></i></button></div>';
+        add+='</div>';
+        $('#addrow').append(add);
+    }
+
+    $(document).on('click','.remove',  function (e){
+        $(this).parent().parent().remove();
+    })
+
+
+</script>
 
 @endsection
