@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('peminjamans', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-            $table->foreignUuid('uuid_karyawan')->references('uuid')->on('karyawans')->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignUuid('uuid_karyawan')->references('uuid')->on('karyawans')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('uuid_peminjam')->references('uuid')->on('karyawans')->onUpdate('cascade')->onDelete('cascade');
             $table->date('tgl_peminjaman');
             $table->date('tgl_akan_kembali');
             $table->enum('status',['Sedang Dipinjam','Sudah Dikembalikan']);

@@ -19,5 +19,8 @@ class Lokasi extends Model
 
      public function penempatan_mutasi(){
         return $this->hasMany(Penempatan_Mutasi::class);
+     }
+    public function inventaris(){
+        return $this->hasMany(Inventaris::class);
     }
 }

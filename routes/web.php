@@ -30,15 +30,20 @@ use App\Http\Controllers\PenempatanMutasiController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard.main');
+});
+
 
 // Kategori
-Route::get('/kategori',[KategoriController::class, 'index']);
-Route::get('/kategori/read',[KategoriController::class, 'read']);
-Route::get('/kategori/create',[KategoriController::class, 'create']);
-Route::get('/kategori/{uuid}/edit',[KategoriController::class, 'edit']);
-Route::post('/kategori/store',[KategoriController::class, 'store']);
-Route::put('/kategori/{uuid}/update',[KategoriController::class, 'update']);
-Route::get('/kategori/{uuid}/destroy',[KategoriController::class, 'destroy']);
+// Route::get('/kategori',[KategoriController::class, 'index']);
+// Route::get('/kategori/read',[KategoriController::class, 'read']);
+// Route::get('/kategori/create',[KategoriController::class, 'create']);
+// Route::get('/kategori/{uuid}/edit',[KategoriController::class, 'edit']);
+// Route::post('/kategori/store',[KategoriController::class, 'store']);
+// Route::put('/kategori/{uuid}/update',[KategoriController::class, 'update']);
+// Route::get('/kategori/{uuid}/destroy',[KategoriController::class, 'destroy']);
+Route::resource('kategori',KategoriController::class );
 
 // Merk
 
@@ -180,3 +185,15 @@ Route::get('/penempatan-mutasi/{uuid}/destroy',[PenempatanMutasiController::clas
 //         return view('dashboard');
 //     })->name('dashboard');
 // });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

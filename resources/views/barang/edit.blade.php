@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title">Edit Data Merk</h4>
+        <h4 class="modal-title">Edit Data Barang</h4>
         <button id="btn-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>

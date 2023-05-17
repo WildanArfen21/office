@@ -24,4 +24,8 @@ class Pengadaan extends Model
     public function pengadaanDetail(){
         return $this->hasMany(Pengadaan_Detail::class);
     }
+
+    public function inventaris(){
+        return $this->hasMany(Inventaris::class);
+    }
 }
