@@ -15,6 +15,7 @@ class KategoriController extends Controller
     public function index(Request $request)
     {
 
+
         $max = Kategori::max('kode');
         $kode = substr($max,3);
         $kode++;

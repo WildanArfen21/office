@@ -95,22 +95,6 @@ class PengadaanController extends Controller
             ]);
         }
 
-        // $kobar = Barang::where('uuid','=',$request->input('barang'))->first();
-        // $noset = Inventaris::max('kode_aset');
-        // $nomoraset = substr($noset,7);
-        // $nomoraset++;
-        // $kodeaset = $kobar->kode.".".sprintf('%03s',$nomoraset);
-        // $tgl = substr($request->input('tgl'),0,4);
-
-        // foreach($request->jumlah as $indexjumlah){
-        //     Inventaris::create([
-        //         'uuid_pengadaan' => $datap->uuid,
-        //         'uuid_barang' => $request->barang[$indexjumlah],
-        //         'kode_aset' => $kobar->kode.".".sprintf('%03s',$nomoraset),
-        //     ]);
-        // }
-
-
 
 
         return response()->json(['success'=>'Post saved successfully.']);

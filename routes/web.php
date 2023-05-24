@@ -60,6 +60,13 @@ Route::resource('supplier',SupplierController::class );
 
 // Pengadaan
 
+// Route::get('/pengadaan',[PengadaanController::class, 'index']);
+// Route::get('/pengadaan/read',[PengadaanController::class, 'read']);
+// Route::get('/pengadaan/create',[PengadaanController::class, 'create']);
+// Route::get('/pengadaan/{uuid}/edit',[PengadaanController::class, 'edit']);
+// Route::post('/pengadaan/store',[PengadaanController::class, 'store']);
+// Route::put('/pengadaan/{uuid}/update',[PengadaanController::class, 'update']);
+// Route::get('/pengadaan/{uuid}/destroy',[PengadaanController::class, 'destroy']);
 Route::resource('pengadaan',PengadaanController::class );
 
 // Pengadaan-Detail

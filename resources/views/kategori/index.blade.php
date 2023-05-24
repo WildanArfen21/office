@@ -118,7 +118,7 @@
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
-
+                    $(this).html('Submit');
                     $('#postForm').trigger("reset");
                     $('#close-modal').click();
                     table.draw();
@@ -163,7 +163,6 @@
 
 
     });
-
 </script>
 
 
