@@ -11,8 +11,7 @@ class Departemen extends Model
     use HasFactory;
     use HasUuids;
     protected $primaryKey = 'uuid';
-    protected $nullable = ['keterangan'];
-    protected $fillable = ['kode','nama'];
+    protected $fillable = ['kode','nama','keterangan'];
 
     public function lokasi(){
         return $this->hasMany(Lokasi::class);

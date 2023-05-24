@@ -117,7 +117,7 @@
                 type: "POST",
                 dataType: 'json',
                 success: function (data) {
-
+                    $(this).html('Submit');
                     $('#postForm').trigger("reset");
                     $('#close-modal').click();
                     table.draw();
@@ -162,138 +162,6 @@
 
 
     });
-
-
-    function read() {
-        $.get("{{ url('kategori/read') }}", {}, function (data, status) {
-            $('#close-modal').click();
-            $('#close-modal').click();
-            $("#read").html(data);
-        });
-    }
-
-    function create() {
-
-        $.get("{{ url('kategori/create') }}", {}, function (data, status) {
-
-            $('#btn-modal').click();
-
-            $("#modal").html(data);
-        });
-    }
-
-
-    function store() {
-
-        var data = {
-            'nama': $('#nama').val(),
-            'kode': $('#kode').val(),
-        }
-
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "{{ url('kategori/store') }}",
-            data: data,
-            dataType: "json",
-            success: function (response) {
-                // console.log(response);
-                if (response.status == 400) {
-                    inputalert();
-                } else {
-                    closemodal();
-                    save();
-                    read();
-                }
-            }
-        });
-    }
-
-    function edit(uuid) {
-        $.get(`{{ url('kategori/${uuid}/edit') }}`, {}, function (data, status) {
-            $('#btn-modal').click();
-            $("#modal").html(data);
-        });
-    }
-
-    function update(uuid) {
-
-        var data = {
-            'nama': $('#nama').val(),
-            'kode': $('#kode').val(),
-        }
-
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: "PUT",
-            url: `{{ url('kategori/${uuid}/update') }}`,
-            data: data,
-            dataType: "json",
-            success: function (response) {
-                // console.log(response);
-                if (response.status == 400) {
-                    inputalert();
-                } else if (response.status == 404) {
-                    notfound();
-                } else {
-                    closemodal();
-                    updatesuccess();
-                    read();
-                }
-            }
-        });
-    }
-
-    function confirmdel(uuid) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                destroy(uuid);
-            }
-        });
-    }
-
-    function destroy(uuid) {
-        $.ajax({
-            type: "get",
-            url: `{{ url('kategori/${uuid}/destroy') }}`,
-            dataType: "json",
-            success: function (response) {
-                // console.log(response);
-
-                if (response.status == 200) {
-                    closemodal();
-                    deletesuccess();
-                    read();
-                }
-            }
-        });
-    }
-
-    function closemodal() {
-        $('#close-modal').click();
-        $('#close-modal').click();
-    }
-
 </script>
 
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('uuid',36);
             $table->foreignUuid('uuid_pengadaan',36)->references('uuid')->on('pengadaans')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignUuid('uuid_barang',36)->references('uuid')->on('barangs')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('deskripsi_barang')->nullable();
             $table->integer('jumlah');
             $table->integer('harga');
             $table->integer('total');

@@ -10,26 +10,40 @@ use App\Models\Barang;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class PengadaanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $barang = Barang::all();
-        return view('pengadaan.index',compact('barang'));
-    }
 
-    public function read(){
-        
-        $pengadaan = Pengadaan::all();
-        return view('pengadaan.read')->with([
-            'data' => $pengadaan,
-            'jenis' => 'jenis',
-            'supplier' => 'supplier',
-        ]);
+        $max = Pengadaan::max('nomor_pengadaan');
+        $kode = substr($max,3);
+        $kode++;
+        $huruf= "BB";
+        $maxkode = $huruf.sprintf("%03s",$kode);
+        $databarang = Barang::all();
+        $datasupplier = Supplier::all();
+        $datajenis = Jenis_Pengadaan::all();
+
+
+        if ($request->ajax()) {
+            $data = Pengadaan::with('jenis','supplier')->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function($row){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Edit" class="edit btn btn-primary editPost">Edit</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Delete" class="btn btn-danger deletePost">Delete</a>';
+                        $btn = $btn. '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Detail" class="detail btn btn-success detailPost ml-1">Detail</a>';
+                            return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+        }
+        return view('pengadaan.index',compact('maxkode','databarang','datasupplier','datajenis'));
     }
 
     /**
@@ -53,68 +67,98 @@ class PengadaanController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'no' => 'required',
-            'tgl' => 'required',
-            'supplier' => 'required',
-            'jenis' => 'required',
-            'keterangan' => 'nullable',
-            'barang' => 'required',
-            'deskripsi' => 'nullable',
-            'harga' => 'required',
-            'jumlah' => 'required',
+    {   
+        
+        Pengadaan::create([
+            'uuid_supplier'=> $request->input('supplier'),
+            'uuid_jenis_pengadaan'=> $request->input('jenis'),
+            'nomor_pengadaan'=> $request->input('no'),
+            'tanggal_pengadaan'=> $request->input('tgl'),
+            'keterangan'=> $request->input('keterangan'),
         ]);
+        $datap = Pengadaan::where('nomor_pengadaan','=', $request->input('no'))->first();
 
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-
-            $pengadaan = new Pengadaan();
-            $pengadaan->uuid_supplier = $request->input('supplier');
-            $pengadaan->uuid_jenis_pengadaan = $request->input('jenis');
-            $pengadaan->nomor_pengadaan = $request->input('no');
-            $pengadaan->tanggal_pengadaan = $request->input('tgl');
-            $pengadaan->keterangan = $request->input('keterangan');
-            $pengadaan->save();
-
-            $datap = Pengadaan::where('nomor_pengadaan','=', $request->input('no'))->first();
-
-            $detail = new Pengadaan_detail();
-            $detail->uuid_pengadaan = $datap->uuid;
-            $detail->uuid_barang = $request->input('barang');
-            $detail->jumlah = $request->input('jumlah');
-            $detail->harga = $request->input('harga');
-            $detail->total = $request->input('harga') * $request->input('jumlah');
-            $detail->save();
-
-            $kobar = Barang::where('uuid','=',$request->input('barang'))->first();
-            
-            $noset = Inventaris::max('kode_aset');
-            $nomoraset = substr($noset,7);
-            $nomoraset++;
-            $kodeaset = $kobar->kode.".".sprintf('%03s',$nomoraset);
-
-            $tgl = substr($request->input('tgl'),0,4);
-
-            $inven = new Inventaris();
-            $inven->uuid_pengadaan = $datap->uuid;
-            $inven->uuid_barang = $request->input('barang');
-            $inven->kode_aset = $kodeaset;
-            $inven->tahun_datang =  $tgl;
-            $inven->harga_barang = $request->input('harga');
-            $inven->status = "Tersedia";
-            $inven->save();
+        $total = [];
+        foreach($request->jumlah as $indexjumlah => $value){
+            $total[] = $value * $request->harga[$indexjumlah];
+        }
 
 
-
-            return response()->json([
-                'status' => 200,
+        foreach($request->barang as $index => $value){
+            Pengadaan_Detail::create([
+                'uuid_barang' => $request->barang[$index],
+                'uuid_pengadaan' => $datap->uuid,
+                'deskripsi_barang' => $request->deskripsi[$index],
+                'jumlah' => $request->jumlah[$index],
+                'harga' => $request->harga[$index],
+                'total'=> $total[$index],
             ]);
         }
+
+
+        
+        return response()->json(['success'=>'Post saved successfully.']);
+
+        // $validator = Validator::make($request->all(), [
+        //     'no' => 'required',
+        //     'tgl' => 'required',
+        //     'supplier' => 'required',
+        //     'jenis' => 'required',
+        //     'keterangan' => 'nullable',
+        //     'barang' => 'required',
+        //     'deskripsi' => 'nullable',
+        //     'harga' => 'required',
+        //     'jumlah' => 'required',
+        // ]);
+
+        // if($validator->fails()){
+        //     return response()->json([
+        //         'status' => 400,
+        //     ]);
+        // }else{
+
+        //     $pengadaan = new Pengadaan();
+        //     $pengadaan->uuid_supplier = $request->input('supplier');
+        //     $pengadaan->uuid_jenis_pengadaan = $request->input('jenis');
+        //     $pengadaan->nomor_pengadaan = $request->input('no');
+        //     $pengadaan->tanggal_pengadaan = $request->input('tgl');
+        //     $pengadaan->keterangan = $request->input('keterangan');
+        //     $pengadaan->save();
+
+        //     $datap = Pengadaan::where('nomor_pengadaan','=', $request->input('no'))->first();
+
+        //     $detail = new Pengadaan_detail();
+        //     $detail->uuid_pengadaan = $datap->uuid;
+        //     $detail->uuid_barang = $request->input('barang');
+        //     $detail->jumlah = $request->input('jumlah');
+        //     $detail->harga = $request->input('harga');
+        //     $detail->total = $request->input('harga') * $request->input('jumlah');
+        //     $detail->save();
+
+        //     $kobar = Barang::where('uuid','=',$request->input('barang'))->first();
+            
+        //     $noset = Inventaris::max('kode_aset');
+        //     $nomoraset = substr($noset,7);
+        //     $nomoraset++;
+        //     $kodeaset = $kobar->kode.".".sprintf('%03s',$nomoraset);
+
+        //     $tgl = substr($request->input('tgl'),0,4);
+
+        //     $inven = new Inventaris();
+        //     $inven->uuid_pengadaan = $datap->uuid;
+        //     $inven->uuid_barang = $request->input('barang');
+        //     $inven->kode_aset = $kodeaset;
+        //     $inven->tahun_datang =  $tgl;
+        //     $inven->harga_barang = $request->input('harga');
+        //     $inven->status = "Tersedia";
+        //     $inven->save();
+
+
+
+        //     return response()->json([
+        //         'status' => 200,
+        //     ]);
+        // }
     }
 
     /**
