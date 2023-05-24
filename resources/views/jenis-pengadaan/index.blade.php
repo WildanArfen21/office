@@ -101,7 +101,7 @@
             $('#savedata').html("Submit");
             $('#savedata').val("create-post");
             $('#postForm').trigger("reset");
-            $('#modelHeading').html("Create Data Kategori");
+            $('#modelHeading').html("Create Data Jenis Pengadaan");
         });
 
         $('#savedata').click(function (e) {
