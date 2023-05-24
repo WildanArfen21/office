@@ -11,8 +11,7 @@ class Pengadaan extends Model
     use HasFactory;
     use HasUuids;
     protected $primaryKey = 'uuid';
-    protected $nullable = ['keterangan'];
-    protected $fillable = ['uuid_supplier','uuid_jenis_pengadaan','nomor_pengadaan','tanggal_pengadaan'];
+    protected $fillable = ['uuid_supplier','uuid_jenis_pengadaan','nomor_pengadaan','tanggal_pengadaan','keterangan'];
 
     public function jenis(){
         return $this->belongsTo(Jenis_Pengadaan::class, 'uuid_jenis_pengadaan');

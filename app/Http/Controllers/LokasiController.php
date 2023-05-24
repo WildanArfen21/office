@@ -2,113 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Lokasi;
 use App\Models\Departemen;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class LokasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('lokasi.index');
-    }
 
-    public function read(){
-        $lokasi = Lokasi::all();
-        return view('lokasi.read')->with([
-            'data' => $lokasi,
-            'departemen' => 'departemen'
-        ]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
         $max = Lokasi::max('kode');
         $kode = substr($max,3);
         $kode++;
         $huruf= "LKS";
         $maxkode = $huruf.sprintf("%03s",$kode);
         $departemen = Departemen::all();
-
-        return view('lokasi.create',compact('maxkode','departemen'));
+        if ($request->ajax()) {
+            $data = Lokasi::with('departemen')->get();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function($row){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Edit" class="edit btn btn-primary editPost">Edit</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Delete" class="btn btn-danger deletePost">Delete</a>';
+                            return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+        }
+        return view('lokasi.index',compact('maxkode','departemen'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'kode' => 'required',
-            'nama' => 'required',
-            'departemen' => 'required',
+        Lokasi::updateOrcreate(['uuid' => $request->uuid],[
+            'kode'=>$request->kode,
+            'nama'=>$request->nama,
+            'uuid_departemen'=>$request->departemen,
+
         ]);
+        return response()->json(['success'=>'Post saved successfully.']);
 
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-
-            $lokasi = new Lokasi;
-            $lokasi->kode = $request->input('kode');
-            $lokasi->nama = $request->input('nama');
-            $lokasi->uuid_departemen = $request->input('departemen');
-            $lokasi->save();
-            return response()->json([
-                'status' => 200,
-            ]);
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($uuid)
-    {
-        $data = Lokasi::find($uuid);
-        $departemen = Departemen::all();
-        return view('lokasi.edit', compact('data','departemen'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $uuid)
+    public function edit($uuid)
     {
-        $validator = Validator::make($request->all(), [
-            'kode' => 'required',
-            'nama' => 'required',
-            'departemen' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-            $lokasi = Lokasi::find($uuid);
-            if($lokasi){
-                $lokasi->kode = $request->input('kode');
-                $lokasi->nama = $request->input('nama');
-                $lokasi->uuid_departemen = $request->input('departemen');
-                $lokasi->update();
-                return response()->json([
-                'status' => 200,
-                ]);
-            }else{
-                return response()->json([
-                    'status' => 404,
-                    ]);
-            }
-            
-        }
+        $post = Lokasi::find($uuid);
+        return response()->json($post);
     }
 
     /**
@@ -116,9 +63,10 @@ class LokasiController extends Controller
      */
     public function destroy($uuid)
     {
-        Lokasi::destroy($uuid);
-        return response()->json([
-            'status' => 200,
-        ]);
+        Lokasi::find($uuid)->delete();
+
+        return response()->json(['success'=>'Post deleted successfully.']);
     }
+
+
 }

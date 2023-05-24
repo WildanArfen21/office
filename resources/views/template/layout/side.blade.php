@@ -171,97 +171,14 @@
                         </li>
                     </ul>
                 <li class="nav-item">
-                  <a href="../kategori" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Kategori</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../lokasi" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>lokasi</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../departemen" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>departemen</p>
-                  </a>
-                </li>
-            <li class="nav-item">
-              <a href="../merk" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Merk</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="../satuan" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>satuan</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-newspaper"></i>
-            <p>
-              Transactional Data
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Mutasi</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/pengadaan" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pengadaan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/jenis-pengadaan" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Jenis Pengadaan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/peminjaman" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Peminjaman</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/penempatan-mutasi" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Penempatan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pemeliharaan</p>
-              </a>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inventaris</p>
-                </a>
-            </li>
-      </ul>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-sign-out-alt"></i>
-          <p>
-            Logout
-          </p>
-        </a>
-    </nav>
-    <!-- /.sidebar-menu -->
-  </div>
-  <!-- /.sidebar -->
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
 </aside>

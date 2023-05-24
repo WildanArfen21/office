@@ -3,8 +3,8 @@
     <thead>
         <tr>
             <th>Kode</th>
-            <th>Nama</th>        
-            <th>Username</th>        
+            <th>Nama</th>
+            <th>Username</th>
             <th>Gender</th>
             <th>Alamat</th>
             <th>No Telp</th>

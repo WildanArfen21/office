@@ -33,15 +33,16 @@ class PenempatanMutasiController extends Controller
      */
     public function create()
     {
-        $max = Karyawan::max('kode');
+        $max = Penempatan_Mutasi::max('nomor');
         $kode = substr($max,3);
         $kode++;
-        $huruf= "KRY";
+        $huruf= "MTS";
         $maxkode = $huruf.sprintf("%03s",$kode);
 
-        $user = User::all();
+        $karyawan = Karyawan::all();
+        $lokasi = Lokasi::all();
 
-        return view('karyawan.create',compact('maxkode','user'));
+        return view('penempatan-mutasi.create',compact('maxkode','karyawan','lokasi'));
     }
 
     /**
@@ -50,13 +51,12 @@ class PenempatanMutasiController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kode' => 'required',
+            'nomor' => 'required',
             'nama' => 'required',
-            'user' => 'required',
-            'gender' => 'required',
-            'alamat' => 'required',
-            'no_telp' => 'required',
-            'foto' => 'nullable',
+            'lokasi' => 'required',
+            'tanggal' => 'required',
+            'keterangan' => 'nullable',
+            'jenis' => 'required',
         ]);
 
         if($validator->fails()){
@@ -65,15 +65,14 @@ class PenempatanMutasiController extends Controller
             ]);
         }else{
 
-            $karyawan = new Karyawan;
-            $karyawan->kode = $request->input('kode');
-            $karyawan->nama = $request->input('nama');
-            $karyawan->uuid_user = $request->input('user');
-            $karyawan->jenis_kelamin = $request->input('gender');
-            $karyawan->alamat = $request->input('alamat');
-            $karyawan->no_telp = $request->input('no_telp');
-            $karyawan->foto = $request->input('foto');
-            $karyawan->save();
+            $penempatan_mutasi = new Penempatan_Mutasi;
+            $penempatan_mutasi->kode = $request->input('nomor');
+            $penempatan_mutasi->uuid_karyawan = $request->input('nama');
+            $penempatan_mutasi->uuid_lokasi = $request->input('lokasi');
+            $penempatan_mutasi->tanggal = $request->input('tanggal');
+            $penempatan_mutasi->keterangan = $request->input('keterangan');
+            $penempatan_mutasi->jenis = $request->input('jenis');
+            $penempatan_mutasi->save();
             return response()->json([
                 'status' => 200,
             ]);
@@ -87,7 +86,7 @@ class PenempatanMutasiController extends Controller
     {
         $user = User::all();
         $data = Karyawan::find($uuid);
-        return view('karyawan.edit', compact('data','user'));
+        return view('penempatan_mutasi.edit', compact('data','user'));
     }
 
     /**

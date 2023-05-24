@@ -5,109 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('supplier.index');
-    }
 
-    public function read(){
-        $supplier = Supplier::all();
-        return view('supplier.read')->with([
-            'data' => $supplier
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
         $max = Supplier::max('kode');
         $kode = substr($max,3);
         $kode++;
         $huruf= "SPL";
         $maxkode = $huruf.sprintf("%03s",$kode);
-
-        return view('supplier.create',compact('maxkode'));
+        if ($request->ajax()) {
+            $data = Supplier::all();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function($row){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Edit" class="edit btn btn-primary editPost">Edit</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Delete" class="btn btn-danger deletePost">Delete</a>';
+                            return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+        }
+        return view('supplier.index',compact('maxkode'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'kode' => 'required',
-            'nama' => 'required',
-            'alamat' => 'required',
-            'no' => 'required',
+        Supplier::updateOrcreate(['uuid' => $request->uuid],[
+            'kode'=>$request->kode,
+            'nama'=>$request->nama,
+            'alamat'=>$request->alamat,
+            'no_telp'=>$request->no_telp,
         ]);
+        return response()->json(['success'=>'Post saved successfully.']);
 
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-
-            $supplier = new Supplier();
-            $supplier->kode = $request->input('kode');
-            $supplier->nama = $request->input('nama');
-            $supplier->alamat = $request->input('alamat');
-            $supplier->no_telp = $request->input('no');
-            $supplier->save();
-            return response()->json([
-                'status' => 200,
-            ]);
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($uuid)
-    {
-        $data = Supplier::find($uuid);
-        return view('supplier.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $uuid)
+    public function edit($uuid)
     {
-        $validator = Validator::make($request->all(), [
-            'kode' => 'required',
-            'nama' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-            $supplier = Supplier::find($uuid);
-            if($supplier){
-                $supplier->kode = $request->input('kode');
-                $supplier->nama = $request->input('nama');
-                $supplier->alamat = $request->input('alamat');
-                $supplier->no_telp = $request->input('no');
-                $supplier->update();
-                return response()->json([
-                'status' => 200,
-                ]);
-            }else{
-                return response()->json([
-                    'status' => 404,
-                    ]);
-            }
-            
-        }
+        $post = Supplier::find($uuid);
+        return response()->json($post);
     }
 
     /**
@@ -115,9 +61,8 @@ class SupplierController extends Controller
      */
     public function destroy($uuid)
     {
-        Supplier::destroy($uuid);
-        return response()->json([
-            'status' => 200,
-        ]);
+        Supplier::find($uuid)->delete();
+
+        return response()->json(['success'=>'Post deleted successfully.']);
     }
 }

@@ -52,11 +52,12 @@
     function store() {
 
         var data = {
+            'nomor': $('#nomor').val(),
             'nama': $('#nama').val(),
-            'tgl_peminjaman': $('#tgl_peminjaman').val(),
-            'tgl_akan_kembali': $('#tgl_akan_kembali').val(),
-            'status': $('#status').val(),
+            'lokasi': $('#lokasi').val(),
+            'tanggal': $('#tanggal').val(),
             'keterangan': $('#keterangan').val(),
+            'jenis': $('#jenis').val(),
 
         }
 

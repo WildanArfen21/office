@@ -12,11 +12,8 @@ class Pengadaan_Detail extends Model
     use HasUuids;
     protected $table = 'pengadaan_details';
     protected $primaryKey = 'uuid';
-    protected $nullable = [
-        'deskripsi_barang'
-    ];
 
-    protected $fillable = ['uuid_pengadaan','uuid_barang','jumlah','harga','total'];
+    protected $fillable = ['uuid_pengadaan','uuid_barang','jumlah','harga','total','deskripsi_barang'];
 
     public function barang(){
         return $this->belongsTo(Barang::class, 'uuid_barang');

@@ -5,92 +5,49 @@ namespace App\Http\Controllers;
 use App\Models\Jenis_Pengadaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class JenisPengadaanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+
+        if ($request->ajax()) {
+            $data = Jenis_Pengadaan::all();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('aksi', function($row){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Edit" class="edit btn btn-primary editPost">Edit</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->uuid.'" data-original-title="Delete" class="btn btn-danger deletePost">Delete</a>';
+                            return $btn;
+                    })
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+        }
         return view('jenis-pengadaan.index');
     }
-    
-    public function read(){
-        $jenis = Jenis_Pengadaan::all();
-        return view('jenis-pengadaan.read')->with([
-            'data' => $jenis
-        ]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('jenis-pengadaan.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+        Jenis_Pengadaan::updateOrcreate(['uuid' => $request->uuid],[
+
+            'nama'=>$request->nama,
         ]);
+        return response()->json(['success'=>'Post saved successfully.']);
 
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-
-            $jenis = new Jenis_Pengadaan;
-            $jenis->nama = $request->input('nama');
-            $jenis->save();
-            return response()->json([
-                'status' => 200,
-            ]);
-        }
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($uuid)
-    {
-        $data = Jenis_Pengadaan::find($uuid);
-        return view('jenis-pengadaan.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $uuid)
+    public function edit($uuid)
     {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-            ]);
-        }else{
-            $jenis = Jenis_Pengadaan::find($uuid);
-            if($jenis){
-                $jenis->nama = $request->input('nama');
-                $jenis->update();
-                return response()->json([
-                'status' => 200,
-                ]);
-            }else{
-                return response()->json([
-                    'status' => 404,
-                    ]);
-            }
-            
-        }
+        $post = Jenis_Pengadaan::find($uuid);
+        return response()->json($post);
     }
 
     /**
@@ -98,9 +55,8 @@ class JenisPengadaanController extends Controller
      */
     public function destroy($uuid)
     {
-        Jenis_Pengadaan::destroy($uuid);
-        return response()->json([
-            'status' => 200,
-        ]);
+        Jenis_Pengadaan::find($uuid)->delete();
+
+        return response()->json(['success'=>'Post deleted successfully.']);
     }
 }
